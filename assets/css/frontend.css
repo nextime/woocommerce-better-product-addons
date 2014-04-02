@@ -1,0 +1,27 @@
+div.product-addon {
+	margin: 1em 0;
+}
+h3.addon-name {
+	margin-top: 0;
+}
+div.addon-description p {
+	margin-bottom: .5em;
+	font-style: italic
+}
+
+dl.product-addon-totals {
+	margin-bottom: 1em;
+	overflow: hidden;
+}
+dl.product-addon-totals dt {
+	width: 50%;
+	float: left;
+	clear: left;
+}
+dl.product-addon-totals dd {
+	float: left;
+}
+.addon-alert{
+	display: none;
+	color: red;
+}

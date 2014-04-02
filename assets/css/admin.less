@@ -1,0 +1,73 @@
+#global-addons-table {
+	td {
+		padding: 7px 9px;
+		vertical-align: middle;
+	}
+	th {
+		padding: 7px 9px;
+	}
+}
+.global-addons-form, .woocommerce_product_addons {
+	td.postbox {
+		padding: 0 !important;
+	}
+	td {
+		label {
+			margin: 0;
+		}
+	}
+	.addon_required {
+		label {
+			display: block;
+			float: none;
+		}
+		input {
+			width: 16px !important;
+			min-width: 0 !important;
+		}
+	}
+}
+#woocommerce-product-data ul.product_data_tabs {
+	li.addons_tab {
+		a {
+			&:before {
+				content: "\e007";
+			}
+		}
+	}
+}
+#product_addons_data {
+	.add_new_addon {
+		float: right;
+	}
+	textarea.import, textarea.export {
+		width: 100%;
+		display: none;
+		margin: 10px 0 0;
+	}
+	.woocommerce_product_addon {
+		.product_addon_type {
+			float: none;
+		}
+		.data {
+			table {
+				padding: 0;
+				border: 1px solid #ececec;
+				thead {
+					th {
+						background: #ececec;
+						padding: 5px;
+					}
+				}
+				tfoot {
+					td {
+						border-top: 1px solid #ececec;
+					}
+				}
+			}
+			input {
+				min-width: 50px;
+			}
+		}
+	}
+}
