@@ -58,7 +58,7 @@ class Product_Addon_Display {
 
 		$params = array(
 			'i18n_addon_total'             => __( 'Options total:', 'wc_product_addons' ),
-			'i18n_grand_total'             => __( 'Grand total:', 'wc_product_addons' ),
+			'i18n_grand_total'             => __( 'Total:', 'wc_product_addons' ),
 			'i18n_remaining'               => __( 'characters remaining', 'wc_product_addons' ),
 			'currency_format_num_decimals' => absint( get_option( 'woocommerce_price_num_decimals' ) ),
 			'currency_format_symbol'       => get_woocommerce_currency_symbol(),
