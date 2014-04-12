@@ -19,8 +19,12 @@ class Product_Addon_Display {
 		add_action( 'get_header', array( $this, 'styles' ) );
 		add_action( 'wc_quick_view_enqueue_scripts', array( $this, 'addon_scripts' ) );
 
-		// Addon display
-		add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'display' ), 10 );
+		// Addon display on single product page
+      add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'display' ), 10 );
+      // Addon display on archive
+      //add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display' ), 10 );
+      add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'wc_closeform' ), 10 );
+
 		add_action( 'wc_product_addons_end', array( $this, 'totals' ), 10 );
 
 		// Change buttons/cart urls
@@ -29,6 +33,14 @@ class Product_Addon_Display {
 		add_filter( 'woocommerce_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'add_to_cart_url' ), 10, 1 );
 	}
+
+   /**
+    * close the form after add to cart button
+    */
+   function wc_closeform() {
+      if(!is_product())              
+        echo '</form>'; 
+   }
 
 	/**
 	 * styles function.
@@ -52,8 +64,12 @@ class Product_Addon_Display {
 	 * Enqueue addon scripts
 	 */
 	function addon_scripts() {
-		wp_register_script( 'accounting', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/accounting.js', '', '0.3.2' );
+      wp_register_style( 'woocommerce-better-addons', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/css/frontend.css', '', '0.3.2' );
+      
+      wp_enqueue_style( 'woocommerce-better-addons' );
 
+		wp_register_script( 'accounting', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/accounting.js', '', '0.3.2' );
+      
 		wp_enqueue_script( 'woocommerce-addons', plugins_url( basename( dirname( dirname( __FILE__ ) ) ) ) . '/assets/js/addons.js', array( 'jquery', 'accounting' ), '1.0', true );
 
 		$params = array(
@@ -113,6 +129,9 @@ class Product_Addon_Display {
 
 		if ( is_array( $product_addons ) && sizeof( $product_addons ) > 0 ) {
 
+         if(!is_product())
+            echo '<form class="cart">';
+
 			do_action( 'wc_product_addons_start', $post_id );
 
 			foreach ( $product_addons as $addon ) {
@@ -136,6 +155,8 @@ class Product_Addon_Display {
 			}
 
 			do_action( 'wc_product_addons_end', $post_id );
+         //if(!is_product())
+         //   echo "</form>";
 		}
 	}
 
@@ -154,7 +175,7 @@ class Product_Addon_Display {
 		else
 			$the_product = $product;
 
-		echo '<div id="product-addons-total" data-type="' . $the_product->product_type . '" data-price="' . ( is_object( $the_product ) ? $the_product->get_price() : '' ) . '"></div>';
+		echo '<div data-addons-pid="'.$the_product->id.'" data-total="product-addons-total" data-type="' . $the_product->product_type . '" data-price="' . ( is_object( $the_product ) ? $the_product->get_price() : '' ) . '"></div>';
 	}
 
 	/**
@@ -286,7 +307,6 @@ class Product_Addon_Display {
 	 */
 	private function check_required_addons( $product_id ) {
 		$addons = get_product_addons( $product_id );
-
 		if ( $addons && ! empty( $addons ) ) {
 			foreach ( $addons as $addon ) {
 				if ( '1' == $addon['required'] ) {
@@ -307,14 +327,13 @@ class Product_Addon_Display {
 	 */
 	public function add_to_cart_text( $text ) {
 		global $product;
-
+      // XXX Remove it also from archive product!
 		if ( ! is_single( $product->id ) ) {
 			if ( $this->check_required_addons( $product->id ) ) {
 				$product->product_type = 'addons';
 				$text = apply_filters( 'addons_add_to_cart_text', __( 'Select options', 'wc_product_addons' ) );
-			}
+         }
 		}
-
 		return $text;
 	}
 
@@ -327,7 +346,7 @@ class Product_Addon_Display {
 	 */
 	function add_to_cart_url( $url ) {
 		global $product;
-
+      // XXX Remove it also from archive product
 		if ( ! is_single( $product->id ) && in_array( $product->product_type, array( 'subscription', 'simple' ) ) && ( ! isset( $_GET['wc-api'] ) || $_GET['wc-api'] !== 'WC_Quick_View' ) ) {
 			if ( $this->check_required_addons( $product->id ) ) {
 				$product->product_type = 'addons';

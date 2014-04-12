@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
 
 		$('.variations_form').on('found_variation', function( event, variation ) {
 			var $variation_form = $(this);
-			var $totals         = $variation_form.find('#product-addons-total');
+			var $totals         = $variation_form.find('[data-total=product-addons-total]');
 
 			if ( $( variation.price_html ).find('.amount:last').size() ) {
 		 		product_price = $( variation.price_html ).find('.amount:last').text();
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
 		$('.cart').bind( 'woocommerce-product-addons-update', function() {
 			var total         = 0;
 			var $cart         = $(this);
-			var $totals       = $cart.find('#product-addons-total');
+			var $totals       = $cart.find('[data-total=product-addons-total]');
 			var product_price = $totals.data( 'price' );
 			var product_type  = $totals.data( 'type' );
 
@@ -93,6 +93,9 @@ jQuery(document).ready(function($) {
 
 			var qty = parseFloat( $cart.find('input.qty').val() );
 
+         console.debug(qty);
+         console.debug(total);
+         qty=1;
 			if ( total > 0 && qty > 0 ) {
 
 				total = parseFloat( total * qty );
@@ -121,17 +124,17 @@ jQuery(document).ready(function($) {
 				html = '<dl class="product-addon-totals"><dt>' + woocommerce_addons_params.i18n_addon_total + '</dt><dd><strong><span class="amount">' + formatted_addon_total + '</span></strong></dd>';
 
 				if ( formatted_grand_total ) {
-					html = html + '<dt>' + woocommerce_addons_params.i18n_grand_total + '</dt><dd><strong><span class="amount">' + formatted_grand_total + '</span></strong></dd>';
+					html = html + '<dt class="dttotal"><strong>' + woocommerce_addons_params.i18n_grand_total + '</strong></dt><dd class="ddtotal"><strong><span class="amount">' + formatted_grand_total + '</span></strong></dd>';
 				}
 
 				html = html + '</dl>';
 
 				$totals.html( html );
-
+            console.debug(html);
 			} else {
 				$totals.empty();
+            console.debug('empty');
 			}
-
 			$('body').trigger('updated_addons');
 
 		} );

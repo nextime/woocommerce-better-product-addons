@@ -21,7 +21,7 @@ Tested up to: 3.2
  * Required functions
  */
 if ( ! function_exists( 'woothemes_queue_update' ) )
-	require_once( 'woo-includes/woo-functions.php' );
+      require_once( 'woo-includes/woo-functions.php' );
 
 if ( is_woocommerce_active() ) {
 
@@ -172,7 +172,17 @@ if ( is_woocommerce_active() ) {
 		);
 
 		register_taxonomy_for_object_type( 'product_cat', 'global_product_addon' );
+
 	}
 
+   function remove_woo_ajax_button() {
+      // replace the ajax button with the complete add to cart button with QTY
+      remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+      add_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_single_add_to_cart', 1);
+   }
+
 	add_action( 'init', 'product_addons_post_types', 20 );
+
+   add_action('plugins_loaded','remove_woo_ajax_button');
+
 }

@@ -13,3 +13,4 @@ if ( ! function_exists( 'is_woocommerce_active' ) ) {
 		return WC_Dependencies::woocommerce_active_check();
 	}
 }
+
