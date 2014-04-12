@@ -16,10 +16,7 @@ dl.product-addon-totals {
 dl.product-addon-totals dt {
 	width: 50%;
 	float: left;
-	clear: left;
-}
-dl.product-addon-totals dd {
-	float: left;
+   clear: left;
 }
 .addon-alert{
 	display: none;
@@ -41,11 +38,6 @@ div.product-addon h3.addon-name {
 
 h3.addon-name {
    margin: 0;
-}
-
-dl.product-addon-totals dt {
-   width:50%;
-   float: left;
 }
 
 .ddtotal {
