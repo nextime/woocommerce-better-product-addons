@@ -138,7 +138,7 @@ class Product_Addon_Admin {
 	public function panel() {
 		global $post;
 
-		$product_addons = array_filter( (array) get_post_meta( $post->ID, '_product_addons', true ) );
+		$product_addons = array_filter( (array) get_post_meta( $_GET['post'], '_product_addons', true ) );
 
 		include( 'html-addon-panel.php' );
 	}
@@ -179,7 +179,7 @@ class Product_Addon_Admin {
 				'post_status'   => 'publish',
 				'post_type'		=> 'global_product_addon',
 				'tax_input'     => array(
-					'product_cat' => $objects
+				'product_cat' => $objects
 				)
 			) );
 
