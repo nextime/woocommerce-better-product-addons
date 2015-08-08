@@ -37,6 +37,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 				</td>
 			</tr>
 			<tr>
+				<td class="addon_class" width="50%">
+					<label for="addon_class_<?php echo $loop; ?>"><?php _e( 'Group Class', 'woocommerce-product-addons' ); ?></label>
+					<input type="text" id="addon_class_<?php echo $loop; ?>" name="product_addon_class[<?php echo $loop; ?>]" value="<?php echo esc_attr( $addon['class'] ) ?>" />
+				</td>
+			</tr>
+			<tr>
 				<td class="data" colspan="3">
 					<table cellspacing="0" cellpadding="0">
 						<thead>

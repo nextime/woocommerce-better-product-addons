@@ -227,6 +227,7 @@ class Product_Addon_Admin {
 			 $addon_type 			= $_POST['product_addon_type'];
 			 $addon_position 		= $_POST['product_addon_position'];
 			 $addon_required		= isset( $_POST['product_addon_required'] ) ? $_POST['product_addon_required'] : array();
+			 $addon_class			= $_POST['product_addon_class'];
 
 			 $addon_option_label	= $_POST['product_addon_option_label'];
 			 $addon_option_price	= $_POST['product_addon_option_price'];
@@ -269,6 +270,7 @@ class Product_Addon_Admin {
 			 		'position'		=> absint( $addon_position[ $i ] ),
 			 		'options' 		=> $addon_options,
 			 		'required'		=> isset( $addon_required[ $i ] ) ? 1 : 0,
+			 		'class' 		=> sanitize_text_field( stripslashes( $addon_class[ $i ] ) ),
 			 	);
 			}
 		}

@@ -145,6 +145,7 @@ class Product_Addon_Display {
 						'name'        => $addon['name'],
 						'description' => $addon['description'],
 						'type'        => $addon['type'],
+						'class'       => $addon['class'],
 					), 'woocommerce-product-addons', $this->plugin_path() . '/templates/' );
 
 				echo $this->get_addon_html( $addon );
