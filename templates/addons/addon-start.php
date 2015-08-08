@@ -1,4 +1,14 @@
-<div class="<?php if ( 1 == $required ) echo 'required-product-addon'; ?> product-addon product-addon-<?php echo sanitize_title( $name ); ?>">
+<?php
+$classes = array();
+
+if ( 1 == $required ) {
+  $classes[] = 'required-product-addon';
+}
+
+$classes[] = 'product-addon product-addon-' . sanitize_title( $name );
+$classes[] = $class;
+?>
+<div class="<?php echo implode(' ', $classes); ?>">
 
 	<?php do_action( 'wc_product_addon_start', $addon ); ?>
 
