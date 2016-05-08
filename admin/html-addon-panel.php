@@ -45,7 +45,7 @@
 <script type="text/javascript">
 	jQuery(function(){
 
-		jQuery( 'select.chosen_select' ).chosen();
+		jQuery( 'select.chosen_select' ).select2();
 
 		jQuery('#product_addons_data')
 		.on( 'change', '.addon_name input', function() {
