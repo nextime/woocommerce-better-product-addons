@@ -50,6 +50,10 @@ if ( is_woocommerce_active() ) {
 		include_once( 'classes/class-product-addon-cart.php' );
 
 		$GLOBALS['Product_Addon_Cart'] = new Product_Addon_Cart();
+
+      include_once ( 'classes/class-product-addon-prices.php' );
+
+      $GLOBALS['Product_Addon_Prices'] = new Product_Addon_Prices();
 	}
 
 	/**

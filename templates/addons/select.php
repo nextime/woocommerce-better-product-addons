@@ -8,9 +8,9 @@ $current_value = isset( $_POST['addon-' . sanitize_title( $addon['field-name'] )
 
 		<?php foreach ( $addon['options'] as $option ) :
 			$loop ++;
-			$price = $option['price'] > 0 ? ' (' . woocommerce_price( $option['price'] ) . ')' : '';
+			$price = $option['price'] > 0 ? ' (' . woocommerce_price($GLOBALS['Product_Addon_Prices']->get_current_price($option['price']) ) . ')' : '';
 			?>
-			<option data-price="<?php echo $option['price']; ?>" value="<?php echo sanitize_title( $option['label'] ) . '-' . $loop; ?>" <?php selected( $current_value, sanitize_title( $option['label'] ) . '-' . $loop ); ?>><?php echo wptexturize( $option['label'] ) . $price ?></option>
+			<option data-price="<?php echo $GLOBALS['Product_Addon_Prices']->get_current_price($option['price']); ?>" value="<?php echo sanitize_title( $option['label'] ) . '-' . $loop; ?>" <?php selected( $current_value, sanitize_title( $option['label'] ) . '-' . $loop ); ?>><?php echo wptexturize( $option['label'] ) . $price ?></option>
 		<?php endforeach; ?>
 
 	</select>

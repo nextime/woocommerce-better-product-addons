@@ -169,7 +169,7 @@ class Product_Addon_Display {
 	 */
 	function totals( $post_id ) {
 
-		global $product;
+      global $product, $Product_Addon_Prices;
 
 		if ( ! isset( $product ) || $product->id != $post_id )
 			$the_product = get_product( $post_id );

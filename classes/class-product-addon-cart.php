@@ -54,6 +54,7 @@ class Product_Addon_Cart {
 	 * @return void
 	 */
 	public function add_cart_item( $cart_item ) {
+      global $Product_Addon_Prices;
 
 		// Adjust price if addons are set
 		if ( ! empty( $cart_item['addons'] ) ) {
@@ -96,15 +97,16 @@ class Product_Addon_Cart {
 	 * @return void
 	 */
 	public function get_item_data( $other_data, $cart_item ) {
-
+      global $Product_Addon_Prices;
 		if ( ! empty( $cart_item['addons'] ) ) {
 
 			foreach ( $cart_item['addons'] as $addon ) {
-
 				$name = $addon['name'];
 
 				if ( $addon['price'] > 0 && apply_filters( 'woocommerce_addons_add_price_to_name', '__return_true' ) )
-					$name .= ' (' . woocommerce_price( $addon['price'] ) . ')';
+					$name .= ' (' . woocommerce_price( $Product_Addon_Prices->get_current_price($addon['price']) ) . ')';
+               
+              
 
 				$other_data[] = array(
 					'name'    => $name,
@@ -126,7 +128,7 @@ class Product_Addon_Cart {
 	 * @return void
 	 */
 	public function add_cart_item_data( $cart_item_meta, $product_id ) {
-		global $woocommerce;
+		global $woocommerce, $Product_Addon_Prices;
 
 		$product_addons = get_product_addons( $product_id );
 
@@ -162,7 +164,7 @@ class Product_Addon_Cart {
 								$cart_item_meta['addons'][] = array(
 									'name' 		=> esc_attr( $addon['name'] ),
 									'value'		=> esc_attr( $option['label'] ),
-									'price' 	=> esc_attr( $option['price'] )
+									'price' 	=> esc_attr( get_current_price($option['price']) )
 								);
 							}
 						}
@@ -199,8 +201,9 @@ class Product_Addon_Cart {
 						$cart_item_meta['addons'][] = array(
 							'name' 		=> esc_attr( $addon['name'] ),
 							'value'		=> esc_attr( $chosen_option['label'] ),
-							'price' 	=> esc_attr( $chosen_option['price'] )
-						);
+                     'price'   => esc_attr( $chosen_option['price'] )
+                  );
+                  
 
 					break;
 					case "custom" :
@@ -225,7 +228,7 @@ class Product_Addon_Cart {
 
 							if ( $addon['type'] == "custom_price" ) {
 								$price = floatval( woocommerce_clean( $posted ) );
-
+                        //$price = $Product_Addon_Prices->get_current_price($price);
 								if ( $price >= 0 ) {
 									$cart_item_meta['addons'][] = array(
 										'name' 		=> esc_attr( $label ),
@@ -370,7 +373,7 @@ class Product_Addon_Cart {
 
 								if ( $addon['type'] == "custom_price" ) {
 									$price = floatval( woocommerce_clean( $posted ) );
-
+                           //$price = $Product_Addon_Prices->get_current_price($price);
 									if ( $price < 0 ) {
 										$this->add_error( sprintf( __( 'Invalid price entered for "%s".', 'woocommerce' ), $addon['name'] ) );
 										return false;
@@ -587,7 +590,7 @@ class Product_Addon_Cart {
 
 							if ( $addon['type'] == "custom_price" ) {
 								$price = floatval( woocommerce_clean( $posted ) );
-
+                        $price = $price;
 								if ( $price >= 0 ) {
 									$cart_item_meta['addons'][] = array(
 										'name' 		=> esc_attr( $label ),
