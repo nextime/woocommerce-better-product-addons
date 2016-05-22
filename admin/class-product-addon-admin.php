@@ -12,7 +12,7 @@ class Product_Addon_Admin {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'woocommerce_admin_css', array( $this, 'styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'styles' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
 		add_filter( 'woocommerce_screen_ids', array( $this, 'add_screen_id' ) );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'tab' ) );
