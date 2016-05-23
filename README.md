@@ -6,5 +6,5 @@ Changes from the original addon:
  * Removed auto-update
  * let's the first option added in select type be the default selected
 
-# NOTE: plugin developement has moved here: https://git.nexlab.net/nextime/woocommerce_bpd
+# NOTE: plugin developement has moved here: https://git.nexlab.net/wordpress/woocommerce_bpd
 
